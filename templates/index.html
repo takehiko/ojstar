@@ -190,8 +190,9 @@
           <textarea class="outputExample" cols="7" rows="7" readonly>{{question.output}}</textarea>
         </div>
         <div class="column paiza" style="width: 70%">
-          <label>動作確認</label>
+          <label>動作確認（高さ <button type="button" style="display:inline" onclick="lengthenIframeHeight()">増やす</button><button type="button" style="display:inline" onclick="shortenIframeHeight()">減らす</button><button type="button" style="display:inline" onclick="resetIframeHeight()">戻す</button>）</label>
           <iframe
+            id="paiza"
             src="{{question.iframe_url}}"
             height="500"
             scrolling="no"
@@ -293,6 +294,21 @@
           alert("ソースコードに全角スペースが含まれています。");
         }
       };
+      const lengthenIframeHeight = async () => {
+        const e = document.getElementById("paiza");
+        const height = e.getAttribute("height") - 0;
+        e.setAttribute("height", height + 200);
+      }
+      const shortenIframeHeight = async () => {
+        const e = document.getElementById("paiza");
+        const height = e.getAttribute("height") - 0;
+        if (height > 200)
+          e.setAttribute("height", height - 200);
+      }
+      const resetIframeHeight = async () => {
+        const e = document.getElementById("paiza");
+        e.setAttribute("height", 500);
+      }
     </script>
   </body>
 </html>
