@@ -9,6 +9,7 @@ CREATE TABLE question (
     output2 text NOT NULL,
     input3 text NOT NULL,
     output3 text NOT NULL,
+    hint text NOT NULL DEFAULT 'ヒントはありません。',
     difficulty VARCHAR(10) DEFAULT 'NONE',
     basename text DEFAULT '',
     commentary text DEFAULT '',
@@ -20,6 +21,7 @@ CREATE TABLE submit (
     question_id int NOT NULL,
     result text NOT NULL,
     source text NOT NULL,
+    readhint INT NOT NULL DEFAULT 0,
     submitted_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (response_id),
     FOREIGN KEY (question_id) REFERENCES question (question_id)
@@ -34,7 +36,8 @@ INSERT INTO question (
         input2,
         output2,
         input3,
-        output3
+        output3,
+        hint
     )
 VALUES (
         1,
@@ -46,5 +49,6 @@ VALUES (
         E'6 5\n',
         E'*****\n*****\n*****\n*****\n*****\n*****\n',
         E'1 1\n',
-        E'*\n'
+        E'*\n',
+        '九九のプログラムを手直しするといいでしょう。変数n、mと別に、forループのための変数宣言が必要となります。繰返し回数と、forループの中で何を出力すればよいかを正しく書いて、Acceptedを目指してください。'
     );

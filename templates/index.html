@@ -136,7 +136,7 @@
   <body>
     <div id="result"></div>
     <form action="" method="POST" class="form">
-      <details>
+      <details id="instruction">
         <summary>注意書き</summary>
         <ul>
           <li>
@@ -152,15 +152,6 @@
             正誤判定はサーバ側で行います。学生番号・提出コード・判定結果はサーバのデータベースに保存されます。
           </li>
           <li>
-            この問題は、単に出力例の通りに出力するプログラムを作成するものではありません。入力に応じて適切な出力をすることが求められます。<br />
-            そのようにプログラムが書かれていない場合には、提出してもWrong Answerとなります。
-          </li>
-        </ul>
-      </details>
-      <details>
-        <summary>提出後のメッセージについて</summary>
-        <ul>
-          <li>
             提出後に表示されるメッセージの意味は次の通りです。
             <ul>
               <li>Accepted：正しく動作しました。</li>
@@ -171,11 +162,18 @@
               <li>Dangerous Program：反則技を使用しないでください。</li>
             </ul>
           </li>
-
           <li>
             Acceptedだけが「正解」、それ以外はすべて「不正解」です。Acceptedを目指して、プログラムを完成させてください。
           </li>
+          <li>
+            この問題は、単に出力例の通りに出力するプログラムを作成するものではありません。入力に応じて適切な出力をすることが求められます。<br />
+            そのようにプログラムが書かれていない場合には、提出してもWrong Answerとなります。
+          </li>
         </ul>
+      </details>
+      <details id="hint">
+        <summary>ヒント</summary>
+        <ul><li>{{question.hint}}</li></ul>
       </details>
       <div id="questionID" style="display: none">{{question.question_id}}</div>
       <!-- <h1>問題名</h1>
@@ -218,6 +216,7 @@
       let qid;
       let rid;
       let res_data = null;
+      let readhint = 0;
       const flag_show_result = false;
 
       // pathに基づきサーバに問い合わせる
@@ -278,7 +277,7 @@
         // let queryString = `/submit_sourcecode?questionID=${questionID}&studentID=${studentID}&source=${source}`;
 
         let path = "/../submit_sourcecode";
-        let param = `questionID=${questionID}&studentID=${studentID}&source=${encodedSource}`;
+        let param = `questionID=${questionID}&studentID=${studentID}&source=${encodedSource}&readhint=${readhint}`;
 
         if (confirm("提出しますか?")) {
           // await query(queryString);
@@ -309,6 +308,13 @@
         const e = document.getElementById("paiza");
         e.setAttribute("height", 500);
       }
+
+      // ヒントを表示するときの処理
+      const toggleHint = () => {
+        readhint = 1;
+        document.getElementById("hint").removeEventListener('toggle', toggleHint, true);
+      }
+      document.getElementById("hint").addEventListener('toggle', toggleHint, true);
     </script>
   </body>
 </html>

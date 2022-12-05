@@ -45,11 +45,13 @@ def judge():
     questionID = int(request.form['questionID'])
     encodedSource = request.form['source']
     studentID = request.form['studentID']
+    readhint = int(request.form['readhint'])
     source = urllib.parse.unquote(encodedSource)
 
     print("questionID: ", questionID)
     print("source: ", source)
     print("studentID: ", studentID)
+    print("readhint: ", readhint)
 
     dbaccess.outputTofile(questionID)
 
@@ -59,7 +61,7 @@ def judge():
     # print(result)
     # source = source.replace('\n', '<br>')
     resID = dbaccess.registerSource(studentID, questionID,
-                                    result, source)
+                                    result, source, readhint)
 
     # resID = dbaccess.getResponseID(studentID, questionID, result, source)
 

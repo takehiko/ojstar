@@ -83,11 +83,11 @@ def getALLQuestions() -> dict:
     return dict_result
 
 
-def registerSource(student_id: int, question_id: int, result: str, source: str):
+def registerSource(student_id: int, question_id: int, result: str, source: str, readhint: int):
     conn = getCon()
     cur = conn.cursor()
-    cur.execute("INSERT INTO submit(student_id,question_id,result,source) VALUES (%s,%s,%s,%s) RETURNING response_id",
-                (student_id, question_id, result, source,))
+    cur.execute("INSERT INTO submit(student_id,question_id,result,source,readhint) VALUES (%s,%s,%s,%s,%s) RETURNING response_id",
+                (student_id, question_id, result, source, readhint,))
 
     conn.commit()  # https://www.psycopg.org/docs/connection.html?highlight=commit#connection.commit
     resID = cur.fetchone()
