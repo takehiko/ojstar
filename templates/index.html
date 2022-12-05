@@ -131,6 +131,13 @@
       #question_content {
         font-size: 18px;
       }
+
+      #submit_result {
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        margin-top: 0.5em;
+        padding: 0.5em;
+      }
     </style>
   </head>
   <body>
@@ -209,6 +216,7 @@
         rows="10"
       ></textarea>
       <button class="register" type="button" onclick="register()">提出</button>
+      <div id="submit_result" style="display:none"></div>
     </form>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -217,6 +225,7 @@
       let rid;
       let res_data = null;
       let readhint = 0;
+      let submit_results = [];
       const flag_show_result = false;
 
       // pathに基づきサーバに問い合わせる
@@ -284,7 +293,9 @@
           await queryByPOST(path, param);
           console.log(res_data);
           let res = `${res_data["result"]}`;
-          console.log(res);
+          // console.log(res);
+          // console.log(res_data["responseID"]);
+          addToResultStatus(res, res_data["responseID"]);
           alert(res);
         }
 
@@ -307,6 +318,18 @@
       const resetIframeHeight = async () => {
         const e = document.getElementById("paiza");
         e.setAttribute("height", 500);
+      }
+
+      // 結果を提出ボタンの下に追加
+      const addToResultStatus = (res, res_id) => {
+        const s = `${(new Date()).toLocaleString()} ... ${res} (${res_id})`;
+        const e = document.getElementById("submit_result");
+        console.log(s);
+        submit_results.unshift(s);
+        e.innerHTML = `<label>提出状況</label><ul><li>${submit_results.join('</li><li>')}</li></li>`;
+        if (submit_results.length == 1) {
+          e.style.display ="block";
+        }
       }
 
       // ヒントを表示するときの処理
