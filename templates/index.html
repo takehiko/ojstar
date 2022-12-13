@@ -147,7 +147,7 @@
         <summary>注意書き</summary>
         <ul>
           <li>
-            学生番号を正しく記入し、提出コードのところに、作成したプログラムを貼り付けてから、提出ボタンを押してください。paiza.ioを使用した場合でも、プログラムを提出コードに貼り付けてください。なお、paiza.ioを使用しなくても解答できます。
+            <span id="inst1">学生番号を正しく記入し、</span>提出コードのところに、作成したプログラムを貼り付けてから、提出ボタンを押してください。paiza.ioを使用した場合でも、プログラムを提出コードに貼り付けてください。なお、paiza.ioを使用しなくても解答できます。
           </li>
           <li>
             日本語文字は一切使用しないでください。とくに全角空白は、paiza.ioでは半角空白扱いですが、オンラインジャッジではコンパイルエラーになります。
@@ -208,7 +208,7 @@
           ></iframe>
         </div>
       </div>
-      <label for="studentID" class="required">学生番号</label>
+      <label for="studentID" class="required" id="studentIDlabel">学生番号</label>
       <input type="text" name="studentID" id="studentID" class="required" maxlength="9" />
       <label for="source" class="required">提出コード</label>
       <textarea
@@ -341,6 +341,26 @@
         document.getElementById("hint").removeEventListener('toggle', toggleHint, true);
       }
       document.getElementById("hint").addEventListener('toggle', toggleHint, true);
+
+      // 学籍番号をクッキーから読み出す
+      // 設定されているか否かで表示内容を変える
+      const getsid = (sid_id = "sid") => {
+        let sid = null;
+        document.cookie.split(/; */).forEach((s) => {
+          const v = s.split(/=/);
+          if (v[0] == 'sid') sid = v[1];
+        })
+        if (sid) {
+          const e1 = document.getElementById("studentID");
+          e1.value = sid;
+          e1.setAttribute("readonly", "readonly");
+          const e2 = document.getElementById("studentIDlabel")
+          e2.classList.remove("required");
+          e2.innerHTML = "学生番号 (変更は<a href=\"../top\">トップページ</a>で)";
+          document.getElementById("inst1").style.display = "none";
+        }
+      }
+      getsid();
     </script>
   </body>
 </html>
