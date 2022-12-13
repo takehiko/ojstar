@@ -5,7 +5,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
-    <title>情報処理ⅡB　「*」の描画 - Program!</title>
+    <title>情報処理ⅡB　「*」の描画 - Complete It!</title>
     <style type="text/css">
       .form {
         margin: 0 auto;
@@ -128,8 +128,13 @@
         padding: 0.5em;
       }
 
+      h1 {
+        font-size: 20px;
+      }
+
       #question_content {
         font-size: 18px;
+        margin-top: 0px;
       }
 
       #submit_result {
@@ -186,9 +191,7 @@
         <ul><li>{{question.hint}}</li></ul>
       </details>
       <div id="questionID" style="display: none">{{question.question_id}}</div>
-      <!-- <h1>問題名</h1>
-      <h1>{{question.name}}</h1> -->
-      <h2>{{question.name}}</h2>
+      <h1>{{question.name}}</h1>
       <p id="question_content">{{question.question_content | safe}}</p>
       <div class="flex">
         <div class="column output" style="width: 30%">
@@ -277,7 +280,7 @@
         encodedSource = encodeURIComponent(source);
 
         if (source == "" || studentID == "") {
-          alert("学生番号またはソースコードが入力されていません");
+          alert("学生番号または提出コードが入力されていません");
           return;
         }
 
