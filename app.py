@@ -55,7 +55,9 @@ def judge():
 
     dbaccess.outputTofile(questionID)
 
-    result = main(source)
+    result = main(source, 0)
+    # result = main(source, 1)
+    # result = main(source, 2)
     # encodedResult = urllib.parse.quote(result)
 
     # print(result)

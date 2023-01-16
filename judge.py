@@ -1,9 +1,10 @@
 import os
 import subprocess
+import re
 from hashlib import sha256
 
 
-def main(str):
+def main(str, lineend = 0):
     result = ""
 
     if "system" in str:
@@ -12,7 +13,7 @@ def main(str):
     stringToFile(str)
     if os.path.isfile("./submit.c"):
 
-        result = compile("submit.c")
+        result = compile("submit.c", lineend)
         deleteBinary()
 
     return result
@@ -24,7 +25,7 @@ def stringToFile(str):
     f.close()
 
 
-def compile(FileName):
+def compile(FileName, lineend = 0):
     command = "gcc {}".format(FileName)
 
     cp = subprocess.run(command, shell=True,
@@ -33,10 +34,10 @@ def compile(FileName):
     if cp.returncode != 0:
         return "Compile Error"
 
-    return func()
+    return func(lineend)
 
 
-def func():
+def func(lineend = 0):
     command = "./a.out"
 
     for index in range(1, 4):
@@ -54,20 +55,20 @@ def func():
             # print("Runtime Error")
             return "Runtime Error"
         else:
-            if answerJudge(stdout, f'correct{index}.txt') == "Wrong Answer":
+            if answerJudge(stdout, f'correct{index}.txt', lineend) == "Wrong Answer":
                 return "Wrong Answer"
 
     return "Accepted"
 
 
-def answerJudge(stdout, FileName):
-    stdout = answerEndlineDeleter(stdout)
+def answerJudge(stdout, FileName, lineend):
+    stdout = processLineEnd(stdout, lineend)
     print(stdout)
     stdout = stdout.encode("utf-8")
     submitHash = sha256(stdout).hexdigest()
 
     ans = open(FileName, "r").read()
-    ans = answerEndlineDeleter(ans)
+    ans = processLineEnd(ans, lineend)
     ans = ans.encode("utf-8")
     print(ans)
 
@@ -81,11 +82,17 @@ def answerJudge(stdout, FileName):
         return "Wrong Answer"
 
 
-def answerEndlineDeleter(str):
-    if len(str) == 0:
-        return str
-    while str[-1] == "\n":
-        str = str[:-1]
+# （lineend < 0 : 置換しない）
+# lineend >= 0 : 最終行の改行を取り除く（デフォルト）
+# lineend >= 1 : 各行の末尾空白を取り除く
+# lineend >= 2 : 先頭および末尾の空行を（空白文字があれば合わせて）取り除く
+def processLineEnd(str, lineend = 0):
+    if lineend >= 2:
+        str = re.sub(re.compile("\A(^\s*\n)+|(^\s*\n)+\s*\Z", re.M), "", str)
+    if lineend >= 1:
+        str = re.sub(re.compile("\s+$", re.M), "", str)
+    if lineend >= 0:
+        str = re.sub("\n\Z", "", str)
 
     return str
 
@@ -108,6 +115,6 @@ if __name__ == "__main__":
     teststr = "abcdefgh\nfjfjf\n\n\n\n"
     print(teststr)
 
-    teststr = answerEndlineDeleter(teststr)
+    teststr = processLineEnd(teststr, 0)
 
     print(teststr)
