@@ -32,6 +32,13 @@ def outputTofile(num):
     strToFile(question["input2"], "input2.txt")
     strToFile(question["input3"], "input3.txt")
 
+def outputTofileByQuestion(question):
+    strToFile(question["output"], "correct1.txt")
+    strToFile(question["output2"], "correct2.txt")
+    strToFile(question["output3"], "correct3.txt")
+    strToFile(question["input"], "input1.txt")
+    strToFile(question["input2"], "input2.txt")
+    strToFile(question["input3"], "input3.txt")
 
 def strToFile(str, FileName):
     if os.path.exists(FileName):

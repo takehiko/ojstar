@@ -53,9 +53,11 @@ def judge():
     print("studentID: ", studentID)
     print("readhint: ", readhint)
 
-    dbaccess.outputTofile(questionID)
+    question = dbaccess.getQuestion(questionID)
+    dbaccess.outputTofileByQuestion(question)
 
-    result = main(source, 0)
+    result = main(source, int(question["endline"]))
+    # result = main(source, 0)
     # result = main(source, 1)
     # result = main(source, 2)
     # result = main(source, -1)
