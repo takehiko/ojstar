@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <title>情報処理ⅡB　「*」の描画 - Note on Whitespace Characters</title>
+    <style type="text/css">
+      body {
+        margin: 0 auto;
+        width: 1500px;
+      }
+      div {
+        margin: 0 auto;
+      }
+      pre {
+        font-size: 150%;
+      }
+      .header {
+        text-align: center;
+        background-color: #bdf7f1;
+        height: 50px;
+        width: 1500px;
+        font-size: 40px;
+      }
+      .header-logo {
+        text-align: center;
+      }
+      .explain {
+        margin: 0 auto;
+        width: 753px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-logo"></div>
+    </div>
+
+    <div class="explain">
+      <h1>情報処理ⅡB　「*」の描画</h1>
+      <h2>空白文字の扱いについて</h2>
+      <p>
+        2023/1/12公開の第6問・第7問で、適切に「*」の描画ができているはずなのに、
+       <br>
+        「Wrong Answer」と表示される、という問い合わせがありました。
+      </p>
+      <p>
+        データベースの提出内容を取り出して、実行してみたところ、例えば第6問で7を
+       <br>
+        入力に与えたときの出力が、次のようになっていました。
+      </p>
+<pre>
+   *   
+  ***  
+ ***** 
+*******
+ ***** 
+  ***  
+   *   
+</pre>
+      <p>
+        うまくいっているように見えますが、プログラムで「 」を出力しているところを、
+       <br>
+        「@」を出力するよう、変更して、実行し直すと、次のようになりました。
+      </p>
+<pre>
+@@@*@@@
+@@***@@
+@*****@
+*******
+@*****@
+@@***@@
+@@@*@@@
+</pre>
+       <p>
+        この「@」を、空白文字に読み替えて、何が起こっているのかを説明しますと、
+       <br>
+        提出されたプログラムでは、すべてが「*」の行を除き、行の後ろに空白文字を
+       <br>
+        出力してから、改行していまして、そのため、用意している正解と異なると、
+       <br>
+        サーバが判定し、「Wrong Answer」の結果になったのでした。
+      </p>
+      <p>
+        空白文字を「@」で表記するなら，入力が7のときには、以下のように出力する
+       <br>
+        必要がありました。
+      </p>
+<pre>
+@@@*
+@@***
+@*****
+*******
+@*****
+@@***
+@@@*
+</pre>
+      <p>
+        この種の、行の後ろの空白文字は、英語でtrailing spaceといい、テキスト
+       <br>
+        エディタで表示や除去を行う機能を持つものもあります。このたび、正誤判定時に
+       <br>
+        無視できるよう、実験的に、機能を追加しました。
+      </p>
+      <p>
+        無視するか否かは、問題ごとに設定します。現時点では、<a href=question/1>第1問</a>・<a href=question/6>第6問</a>・<a href=question/1>第7問</a>
+       <br>
+        のみ無視して判定し、それ以外（2023/1/19の第8問・第9問においても）は
+       <br>
+        従来通り、そのような空白文字を出力しているプログラムは「Wrong Answer」と
+       <br>
+        なります。
+      </p>
+      <p>
+        今後も、冗長な空白文字を出力しないよう、「*」の描画の課題に取り組んで
+       <br>
+        ください。
+      </p>
+      <p>
+        <a href="top">トップページに戻る</a>
+      </p>
+    </div>
+  </body>
+</html>
