@@ -102,6 +102,36 @@ def deleteBinary(FileName="./a.out"):
         os.remove(FileName)
 
 
+def runModelAnswer(source, input):
+    # sourceをファイルに保存
+    f = open("model.c", "w")
+    f.write(source)
+    f.close()
+    # コンパイル
+    command = "gcc model.c -o model"
+    cp = subprocess.run(command, shell=True,
+                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if cp.returncode != 0:
+        return "Compile Error"
+    if os.path.isfile("model") == False:
+        return "Compile Error (Executable file not created)"
+    # inputを与えてプログラムを実行し，結果を獲得
+    command = "./model"
+    output = ""
+    try:
+        cp = subprocess.run(command, input=input.encode(), shell=True,
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=2, check=True)
+        output = cp.stdout.decode("utf-8")
+    except subprocess.TimeoutExpired:
+        return "Time Limit Exceeded"
+    except subprocess.CalledProcessError:
+        return "Runtime Error"
+    # ファイル削除
+    os.remove("model")
+    os.remove("model.c")
+    # 結果を返す
+    return output
+
 if __name__ == "__main__":
     FileName = ["accepted.c", "wronganswer.c",
                 "RuntimeError.c", "CompileError.c", "endlessloop.c", "dangerous.c"]

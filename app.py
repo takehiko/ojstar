@@ -1,5 +1,6 @@
+import re
 from flask import Flask, request, jsonify, render_template
-from judge import main
+from judge import main, runModelAnswer
 import dbaccess
 from waitress import serve
 
@@ -81,6 +82,23 @@ def judge():
 @ app.route('/getALLQuestions', methods=['GET', 'POST'])
 def getALLQuestions():
     return jsonify(dbaccess.getALLQuestions())
+
+
+@app.route('/sample/<int:questionID>/<string:input>', methods=['POST', 'GET'])
+def sample(questionID, input):
+    if re.search(r'[^0-9\s\+\-]', input) != None:
+        return f'<h1>Invalid Input for Execution Example</h1>'
+    question = dbaccess.getModelAnswer(questionID)
+    if question == None:
+        return f'<h1>Invalid ID for Execution Example</h1>'
+    #print("debug:runModelAnswer")
+    #print(question)
+    output = runModelAnswer(question["source"], input)
+
+    print("sample")
+    print(output)
+
+    return render_template('sample.html', question_name=question["name"], input=input, output=output)
 
 
 # https://qiita.com/ekzemplaro/items/2766618ba5968ee62b70

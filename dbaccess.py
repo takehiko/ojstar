@@ -75,6 +75,17 @@ def getQuestion(num: int) -> dict:
     return res
 
 
+def getModelAnswer(num: int) -> dict:
+    conn = getCon()
+    cur = conn.cursor(cursor_factory=DictCursor)
+    cur.execute('SELECT question.name as name, modelanswer.source as source from question,modelanswer where question.question_id = %s and question.question_id = modelanswer.question_id', (num,))
+    res = cur.fetchone()
+    res = dict(res) if res else None
+    cur.close()
+    conn.close()
+    return res
+
+
 def getALLQuestions() -> dict:
     conn = getCon()
     cur = conn.cursor(cursor_factory=DictCursor)

@@ -27,6 +27,11 @@ CREATE TABLE submit (
     PRIMARY KEY (response_id),
     FOREIGN KEY (question_id) REFERENCES question (question_id)
 );
+CREATE TABLE modelanswer (
+    question_id int NOT NULL,
+    source text NOT NULL,
+    PRIMARY KEY (question_id)
+);
 INSERT INTO question (
         question_id,
         name,
@@ -166,3 +171,15 @@ VALUES (
 -- 3. 実行ボタンの行の右端にある共有と埋め込みボタンを押す
 -- 4. 埋め込みタグ内のsrc属性の値をコピーする
 -- 注意:複数の問題を登録する際、手順1からやり直す
+
+INSERT INTO modelanswer (
+        question_id,
+        source
+    )
+VALUES (
+        8,
+        E'#include <stdio.h>\nint main(void){\n    int n, m;\n    int i, j;\n\n    scanf("%d %d", &n, &m);\n    if (n <= 0 || m <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n\n    for (i = 1; i <= m; i++) {\n        int r;\n        if (n == 1) {\n            r = 1;\n        } else {\n            int v = (i - 1) % ((n - 1) * 2);\n            if (v < n - 1) {\n              r = v + 1;\n            } else {\n              r = (n - 1) * 2 - v + 1;\n            }\n        }\n        for (j = 1; j < r; j++) {\n            printf(" ");\n        }\n        printf("*\\n");\n    }\n\n    return 0;\n}\n'
+),(
+        9,
+        E'#include <stdio.h>\nint main(void){\n    int n, m;\n    int i, j;\n\n    scanf("%d %d", &n, &m);\n    if (n <= 0 || m <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n\n    for (i = 1; i <= n && i <= m; i++) {\n        int x = 0;\n        int r1, r2, r3;\n\n        r1 = i - 1;\n        r2 = n * 2 - 1 - i * 2;\n        r3 = -3 + i * 2;\n        if (i == 1) r3 = r2;\n        if (i == n) r2 = r3;\n        if (n == 1) r1 = r2 = r3 = 0;\n\n        for (j = 1; j <= r1; j++) {\n          printf(" ");\n        }\n        printf("*");\n        x += r1 + 1;\n\n        while (x <= m) {\n          if (x + r2 + 1 > m)\n            break;\n          for (j = 1; j <= r2; j++) {\n            printf(" ");\n          }\n          printf("*");\n          x += r2 + 1;\n\n          if (x + r3 + 1 > m)\n            break;\n          for (j = 1; j <= r3; j++) {\n            printf(" ");\n          }\n          printf("*");\n          x += r3 + 1;\n        }\n        printf("\\n");\n    }\n\n    return 0;\n}\n'
+);
