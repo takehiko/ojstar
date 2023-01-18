@@ -18,6 +18,11 @@ def question(questionID):
     return render_template('index.html', question=questionInfo) if questionInfo else f'<h1>Question {questionID} not found</h1>'
 
 
+@app.route('/space', methods=['GET', 'POST'])
+def space():
+    return render_template('space.html')
+
+
 @app.route('/choice', methods=['POST', 'GET'])
 def choice():
     return render_template('choice.html')
