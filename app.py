@@ -87,10 +87,12 @@ def getALLQuestions():
 @app.route('/sample/<int:questionID>/<string:input>', methods=['POST', 'GET'])
 def sample(questionID, input):
     if re.search(r'[^0-9\s\+\-]', input) != None:
-        return f'<h1>Invalid Input for Execution Example</h1>'
+        return f'<h1>Invalid Input</h1>'
+    if re.search(r'\d\d\d', input) != None:
+        return f'<h1>Invalid Input</h1>'
     question = dbaccess.getModelAnswer(questionID)
     if question == None:
-        return f'<h1>Invalid ID for Execution Example</h1>'
+        return f'<h1>Invalid Question</h1>'
     #print("debug:runModelAnswer")
     #print(question)
     output = runModelAnswer(question["source"], input)
