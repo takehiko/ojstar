@@ -187,7 +187,7 @@ VALUES (
         E'*******\n*     *\n* * * *\n*     *\n*******\n',
         E'81 82\n',
         E'even\n',
-        E'2次元配列roomの宣言のあとには、各要素に'' ''、''*''、''<span lang="en" style="font-family:Courier New">\\</span>n''のいずれかを格納してから、room[0]からroom[n-1]までを順に出力させてください。<ul><li>各要素の格納のための処理は、2重ループにします。</li><li>問題文のうち「外周」は、この2次元配列の添字（[ ]の中に書く式）がどのような値になるときか、考えてみてください。外周以外は、行位置と列位置が、奇数か偶数かで場合分けしてください。</li><li>room[0][m]からroom[n-1][m]までにはそれぞれ''<span lang="en" style="font-family:Courier New">\\</span>0''を代入することで、room[0]からroom[n-1]までが文字列となります。printf("%s<span lang="en" style="font-family:Courier New">\\</span>n", 文字列);と書いて出力できます。</li></ul></li><li>roomの宣言の前に、nとmの値が負の数や偶数のときには別途出力して終了する処理を書くのを忘れないように。',
+        E'2次元配列roomの宣言のあとには、各要素に'' ''、''*''、''<span lang="en" style="font-family:Courier New">\\</span>0''のいずれかを格納してから、room[0]からroom[n-1]までを順に出力させてください。<ul><li>各要素の格納のための処理は、2重ループにします。</li><li>問題文のうち「外周」は、この2次元配列の添字（[ ]の中に書く式）がどのような値になるときか、考えてみてください。外周以外は、行位置と列位置が、奇数か偶数かで場合分けしてください。</li><li>room[0][m]からroom[n-1][m]までにはそれぞれ''<span lang="en" style="font-family:Courier New">\\</span>0''を代入することで、room[0]からroom[n-1]までが文字列となります。printf("%s<span lang="en" style="font-family:Courier New">\\</span>n", 文字列);と書いて出力できます。</li></ul></li><li>roomの宣言の前に、nとmの値が負の数や偶数のときには別途出力して終了する処理を書くのを忘れないように。',
         0
     );
 
