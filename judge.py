@@ -13,7 +13,7 @@ def main(str, lineend = 0):
     stringToFile(str)
     if os.path.isfile("./submit.c"):
 
-        result = compile("submit.c", lineend)
+        result = compile("submit.c", lineend, 'math.h' in str)
         deleteBinary()
 
     return result
@@ -25,8 +25,8 @@ def stringToFile(str):
     f.close()
 
 
-def compile(FileName, lineend = 0):
-    command = "gcc {}".format(FileName)
+def compile(FileName, lineend = 0, optlm = False):
+    command = f"gcc {FileName}{' -lm' if optlm else ''}"
 
     cp = subprocess.run(command, shell=True,
                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -108,7 +108,7 @@ def runModelAnswer(source, input):
     f.write(source)
     f.close()
     # コンパイル
-    command = "gcc model.c -o model"
+    command = f"gcc model.c -o model{' -lm' if 'math.h' in source else ''}"
     cp = subprocess.run(command, shell=True,
                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if cp.returncode != 0:
