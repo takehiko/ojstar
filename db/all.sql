@@ -187,7 +187,7 @@ VALUES (
         E'*******\n*     *\n* * * *\n*     *\n*******\n',
         E'81 82\n',
         E'even\n',
-        E'2次元配列roomの宣言のあとには、各要素に'' ''、''*''、''<span lang="en" style="font-family:Courier New">\\</span>0''のいずれかを格納してから、room[0]からroom[n-1]までを順に出力させてください。<ul><li>各要素の格納のための処理は、2重ループにします。</li><li>問題文のうち「外周」は、この2次元配列の添字（[ ]の中に書く式）がどのような値になるときか、考えてみてください。外周以外は、行位置と列位置が、奇数か偶数かで場合分けしてください。</li><li>room[0][m]からroom[n-1][m]までにはそれぞれ''<span lang="en" style="font-family:Courier New">\\</span>0''を代入することで、room[0]からroom[n-1]までが文字列となります。printf("%s<span lang="en" style="font-family:Courier New">\\</span>n", 文字列);と書いて出力できます。</li></ul></li><li>roomの宣言の前に、nとmの値が負の数や偶数のときには別途出力して終了する処理を書くのを忘れないように。',
+        E'2次元配列roomの宣言のあとには、この配列の各要素に'' ''、''*''、''<span lang="en" style="font-family:Courier New">\\</span>0''のいずれかを格納してから、room[0]からroom[n-1]までを順に出力させてください。<ul><li>格納のための処理は、2重ループにします。</li><li>問題文のうち「外周」は、この2次元配列の添字（[ ]の中に書く式）がどのような値になるときか、考えてみてください。外周以外は、行位置と列位置が、奇数か偶数かで場合分けしてください。</li><li>room[0][m]からroom[n-1][m]までにはそれぞれ''<span lang="en" style="font-family:Courier New">\\</span>0''を代入することで、room[0]からroom[n-1]までが文字列となります。printf("%s<span lang="en" style="font-family:Courier New">\\</span>n", 文字列);で出力します。</li></ul></li><li>roomの宣言の前に、nとmの値が負の数や偶数のときには別途出力して終了する処理を書くのを忘れないように。',
         0
     );
 
@@ -205,6 +205,27 @@ INSERT INTO modelanswer (
         source
     )
 VALUES (
+        1,
+        E'#include <stdio.h>\nint main(void){\n    int n, m;\n    int i, j;\n\n    scanf("%d %d", &n, &m);\n\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= m; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n\n    return 0;\n}\n'
+),(
+        2,
+        E'#include <stdio.h>\nint main(void){\n    int n;\n    scanf("%d", &n);\n    int i, j;\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    return 0;\n}\n'
+),(
+        3,
+        E'#include <stdio.h>\nint main(void){\n    int n;\n    scanf("%d", &n);\n    int i, j;\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= n - i + 1; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    return 0;\n}\n'
+),(
+        4,
+        E'#include <stdio.h>\nint main(void){\n    int n;\n    scanf("%d", &n);\n    if (n <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n    int i, j;\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    for (i = 1; i <= n - 1; i++) {\n        for (j = 1; j <= n - i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    return 0;\n}\n'
+),(
+        5,
+        E'#include <stdio.h>\nint main(void){\n    int n;\n    scanf("%d", &n);\n    if (n <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n    int i, j;\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    for (i = 1; i <= n - 1; i++) {\n        for (j = 1; j <= i; j++) {\n            printf(" ");\n        }\n        for (j = 1; j <= n - i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    return 0;\n}\n'
+),(
+        6,
+        E'#include <stdio.h>\nint main(void){\n    int n;\n    int i, j;\n    int r, s;\n\n    scanf("%d", &n);\n    if (n <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n    if (n % 2 == 0) {\n        printf("even\\n");\n        return 0;\n    }\n\n    for (i = 1, r = (n - 1) / 2, s = 1; i <= n; i++) {\n        for (j = 1; j <= r; j++) {\n            printf(" ");\n        }\n        for (j = 1; j <= s; j++) {\n            printf("*");\n        }\n        printf("\\n");\n        if (i < (n + 1) / 2) {\n            r--;\n            s += 2;\n        } else {\n            r++;\n            s -= 2;\n        }\n    }\n\n    return 0;\n}\n'
+),(
+        7,
+        E'#include <stdio.h>\nint main(void){\n    int n;\n    int i, j;\n    int r, s;\n\n    scanf("%d", &n);\n    if (n <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n    if (n % 2 == 1) {\n        printf("odd\\n");\n        return 0;\n    }\n\n    for (i = 1, r = n / 2 - 1, s = 2; i <= n; i++) {\n        for (j = 1; j <= r; j++) {\n            printf(" ");\n        }\n        for (j = 1; j <= s; j++) {\n            printf("*");\n        }\n        printf("\\n");\n        if (i < n / 2) {\n            r--;\n            s += 2;\n        } else if (i > n / 2) {\n            r++;\n            s -= 2;\n        }\n    }\n\n    return 0;\n}\n'
+),(
         8,
         E'#include <stdio.h>\nint main(void){\n    int n, m;\n    int i, j;\n\n    scanf("%d %d", &n, &m);\n    if (n <= 0 || m <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n\n    for (i = 1; i <= m; i++) {\n        int r;\n        if (n == 1) {\n            r = 1;\n        } else {\n            int v = (i - 1) % ((n - 1) * 2);\n            if (v < n - 1) {\n              r = v + 1;\n            } else {\n              r = (n - 1) * 2 - v + 1;\n            }\n        }\n        for (j = 1; j < r; j++) {\n            printf(" ");\n        }\n        printf("*\\n");\n    }\n\n    return 0;\n}\n'
 ),(
