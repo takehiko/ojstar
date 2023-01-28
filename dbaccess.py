@@ -3,6 +3,7 @@ import psycopg2
 import os
 from psycopg2.extras import DictCursor
 import urllib.parse
+import re
 
 print(psycopg2.apilevel)
 
@@ -116,20 +117,73 @@ def registerSource(student_id: int, question_id: int, result: str, source: str, 
     return resID
 
 
-def getALLsubmit():
+def replaceSpecialCharacter(s):
+    c = s.group(0)
+    d = {
+        "&": "&amp;",
+        "'": "&#039;",
+        '"': "&quot;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\n": "<br>",
+        " ": "&nbsp;",
+        "\t": "&nbsp;&nbsp;&nbsp;&nbsp;"
+    }
+    return d[c] if (c in d) else c
+
+
+def getSubmit(cond=''):
+    query = 'SELECT * FROM submit ' + cond
     conn = getCon()
     cur = conn.cursor(cursor_factory=DictCursor)
-    cur.execute('SELECT * FROM submit')
-    submits = []
-
+    cur.execute(query)
+    cols = [col.name for col in cur.description] # カラム名のリスト
+    submits = "<table border='1'><thead><tr>"
+    for col in cols:
+        submits += "<th>" + col + "</th>"
+    submits += "</tr></thead><tbody>"
     for i in cur:
-        submits.append(dict(i))
-
+        d = dict(i)
+        submits += "<tr>"
+        for col in cols:
+            submits += "<td>" + (re.sub(r'[&\'"<>\n \t]', replaceSpecialCharacter, (str(d[col]))) if col in d else '&nbsp;') + "</td>"
+        submits += "</tr>"
+    submits += "</tbody></table>"
     cur.close()
     conn.close()
-
     return submits
 
+
+def getALLsubmit():
+    return getSubmit('')
+
+
+def getSubmitByStudentID(studenID):
+    return getSubmit(f"WHERE student_id='{studenID}'")
+
+
+def getSubmitByQuestionID(questionID):
+    return getSubmit(f"WHERE question_id='{questionID}'")
+
+
+def getSubmitByResponseID(response):
+    # 数値-数値
+    m = re.match(r'^(\d+)-(\d+)', response)
+    if m:
+        return getSubmit(f'WHERE response_id BETWEEN {m.group(1)} AND {m.group(2)}')
+    # -数値
+    m = re.match(r'^-(\d+)', response)
+    if m:
+        return getSubmit(f'WHERE response_id <= {m.group(1)}')
+    # 数値-
+    m = re.match(r'^(\d+)-', response)
+    if m:
+        return getSubmit(f'WHERE response_id >= {m.group(1)}')
+    # その他（数値のみの場合を含む）
+    return getSubmit(f"WHERE response_id='{response}'")
+
+def getSubmitByID(response):
+    return getSubmitByResponseID(response)
 
 def getResponseID(studentID, questionID, result, source):
     conn = getCon()

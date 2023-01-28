@@ -29,20 +29,44 @@ def choice():
     return render_template('choice.html')
 
 
+@app.route('/result/s/<string:studentID>', methods=['POST', 'GET'])
+def result_s(studentID):
+    submits = dbaccess.getSubmitByStudentID(studentID)
+    return render_template('result.html', submits=submits)
+
+
+@app.route('/result/q/<string:questionID>', methods=['POST', 'GET'])
+def result_q(questionID):
+    submits = dbaccess.getSubmitByQuestionID(questionID)
+    return render_template('result.html', submits=submits)
+
+
+@app.route('/result/id/<string:response>', methods=['POST', 'GET'])
+def result_id(response):
+    submits = dbaccess.getSubmitByResponseID(response)
+    return render_template('result.html', submits=submits)
+
+
+@app.route('/result/all', methods=['POST', 'GET'])
+def result_all():
+    submits = dbaccess.getALLsubmit()
+    return render_template('result.html', submits=submits)
+
+
 @app.route('/result', methods=['POST', 'GET'])
 def result():
-    submits = dbaccess.getALLsubmit()
+    submits = dbaccess.getSubmit("ORDER BY response_id DESC LIMIT 50")
     print("result")
     print(submits)
 
     return render_template('result.html', submits=submits)
 
 
-@app.route('/getALLsubmits', methods=['POST', 'GET'])
-def getALLsubmits():
-    contents = jsonify(dbaccess.getALLsubmit())
-
-    return contents
+#@app.route('/getALLsubmits', methods=['POST', 'GET'])
+#def getALLsubmits():
+#    contents = jsonify(dbaccess.getALLsubmit())
+#
+#    return contents
 
 
 @ app.route('/submit_sourcecode', methods=['POST'])
