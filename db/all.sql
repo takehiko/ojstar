@@ -189,6 +189,19 @@ VALUES (
         E'even\n',
         E'2次元配列roomの宣言のあとには、この配列の各要素に'' ''、''*''、''<span lang="en" style="font-family:Courier New">\\</span>0''のいずれかを格納してから、room[0]からroom[n-1]までを順に出力させてください。<ul><li>格納のための処理は、2重ループにします。</li><li>問題文のうち「外周」は、この2次元配列の添字（[ ]の中に書く式）がどのような値になるときか、考えてみてください。外周以外は、行位置と列位置が、奇数か偶数かで場合分けしてください。「3行3列の位置」は、room[3][3]ではありません。</li><li>room[0][m]からroom[n-1][m]までにはそれぞれ''<span lang="en" style="font-family:Courier New">\\</span>0''を代入することで、room[0]からroom[n-1]までが文字列となります。printf("%s<span lang="en" style="font-family:Courier New">\\</span>n", 文字列);で出力します。</li></ul></li><li>roomの宣言の前に、nとmの値が負の数や偶数のときには別途出力して終了する処理を書くのを忘れないように。',
         0
+    ),(
+        12,
+        '第12問',
+        'scanf関数を呼び出して、正の奇数を受け取り変数nに格納したあと、出力例のように、「*」と空白文字による並びを出力するプログラムを作成しなさい。<br>行数はn、どの行も列数（改行を除く出力文字数）はnです。外周はすべて「*」です。その一つ分、内側はすべて空白文字です。その一つ分、内側はすべて「*」です。同様にして、「*」と空白文字を互い違いにします。nが十分に大きければ、「*」の正方形による囲みが何重にもできる形となります（nの値によっては、中心が「*」になることもあります）。<br>変数nに、0または負の値が格納された場合には「invalid」を、正の偶数が格納されたときには「even」を出力して、改行し、プログラムを終了してください。1の場合には、「*」と改行だけを出力しなさい。',
+        'https://paiza.io/projects/e/mkgQTNTCt46KpKVn_YhvDw?theme=twilight',
+        E'11\n',
+        E'***********\n*         *\n* ******* *\n* *     * *\n* * *** * *\n* * * * * *\n* * *** * *\n* *     * *\n* ******* *\n*         *\n***********\n',
+        E'3\n',
+        E'***\n* *\n***\n',
+        E'12\n',
+        E'even\n',
+        E'第10問・第11問で作成したプログラムを使うことができます。<ul><li>第10問と同じ方針で作成するなら、「// char room[n][n + 1];」は行全体を取り除いてください。</li><li>第11問と同じ方針で作成するなら、「// 」を取り除き、配列roomの要素に値を格納して、行ごとに出力させましょう。</li></ul></li><li>2重ループを書き、着目する行位置・列位置に応じて、どのようなときに「*」を、どのようなときに空白を、出力すればよいか、考え、プログラムコードに取り入れてください。</li><li>奇数行目では、何列目から何列目まで連続して「*」を出力するのでしょうか。偶数行目では、何列目から何列目まで連続して空白文字を出力するのでしょうか。これらはいずれも、nと、行の位置（何行目か）を用いて、計算できます。</li><li>入力を受け取る変数はnのみになります。「invalid」または「even」を出力して終了する条件を、間違えないように。',
+        0
     );
 
 UPDATE question SET question_content=(SELECT question_content FROM question WHERE question_id=10) WHERE question_id=11;
@@ -237,6 +250,9 @@ VALUES (
 ),(
         11,
         ''
+),(
+        12,
+        E'#include <stdio.h>\nint main(void){\n    int n;\n    scanf("%d", &n);\n\n    if (n <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n    if (n % 2 == 0) {\n        printf("even\\n");\n        return 0;\n    }\n\n    // char room[n][n + 1];\n    int i, j;\n\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= n; j++) {\n            if (i % 2 == 0) { /* 偶数行 */\n                if (i <= j && j <= n - (i - 1)) {\n                    printf(" ");\n                } else if (n - (i - 1) <= j && j <= i) {\n                    printf(" ");\n                } else if (j % 2 == 1) {\n                    printf("*");\n                } else {\n                    printf(" ");\n                }\n            } else { /* 奇数行 */\n                if (i <= j && j <= n - (i - 1)) {\n                    printf("*");\n                } else if (n - (i - 1) <= j && j <= i) {\n                    printf("*");\n                } else if (j % 2 == 1) {\n                    printf("*");\n                } else {\n                    printf(" ");\n                }\n            }\n        }\n        printf("\\n");\n    }\n\n    return 0;\n}\n'
 );
 
 UPDATE modelanswer SET source=(SELECT source FROM modelanswer WHERE question_id=10) WHERE question_id=11;
