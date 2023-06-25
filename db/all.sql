@@ -49,15 +49,15 @@ INSERT INTO question (
 VALUES (
         1,
         '第1問',
-        'scanf関数を呼び出して、2つの正の整数を受け取り変数nおよびmに格納したあと、出力例のように、行数がn、列数がmの「*」による長方形のような並びを出力するプログラムを作成してください。',
-        'https://paiza.io/projects/e/UNWMZBJv3imIf1-purutqQ?theme=twilight',
-        E'3 4\n',
+        'input関数を呼び出して、2つの正の整数を受け取り変数nおよびmに格納したあと、出力例のように、行数がn、列数がmの「*」による長方形のような並びを出力するプログラムを作成してください。',
+        'https://paiza.io/projects/e/cae8clhfoiYaD03ZH5xuZw?theme=twilight',
+        E'3\n4\n',
         E'****\n****\n****\n',
-        E'6 5\n',
+        E'6\n5\n',
         E'*****\n*****\n*****\n*****\n*****\n*****\n',
-        E'1 1\n',
+        E'1\n1\n',
         E'*\n',
-        '九九のプログラムを手直しするといいでしょう。変数n、mと別に、forループのための変数宣言が必要となります。繰返し回数と、forループの中で何を出力すればよいかを正しく書いて、Acceptedを目指してください。',
+        '九九のプログラムを手直しするといいでしょう。繰返し回数と、forループの中で何を出力すればよいかを正しく書いて、Acceptedを目指してください。',
         2
     ),(
         2,
@@ -219,7 +219,7 @@ INSERT INTO modelanswer (
     )
 VALUES (
         1,
-        E'#include <stdio.h>\nint main(void){\n    int n, m;\n    int i, j;\n\n    scanf("%d %d", &n, &m);\n\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= m; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n\n    return 0;\n}\n'
+        E'n = int(input())\nm = int(input())\nfor i in range(n):\n    for j in range(m):\n        print(''*'', end = '''')\n    print()\n'
 ),(
         2,
         E'#include <stdio.h>\nint main(void){\n    int n;\n    scanf("%d", &n);\n    int i, j;\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    return 0;\n}\n'

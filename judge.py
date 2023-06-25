@@ -11,22 +11,22 @@ def main(str, lineend = 0):
         return "Dangerous Program"
 
     stringToFile(str)
-    if os.path.isfile("./submit.c"):
+    if os.path.isfile("./submit.py"):
 
-        result = compile("submit.c", lineend, 'math.h' in str)
+        result = compile("submit.py", lineend, False)
         deleteBinary()
 
     return result
 
 
 def stringToFile(str):
-    f = open("submit.c", "w")
+    f = open("submit.py", "w")
     f.write(str)
     f.close()
 
 
 def compile(FileName, lineend = 0, optlm = False):
-    command = f"gcc {FileName}{' -lm' if optlm else ''}"
+    command = ["python3", "-m", "py_compile", "submit.py"]
 
     cp = subprocess.run(command, shell=True,
                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -38,7 +38,7 @@ def compile(FileName, lineend = 0, optlm = False):
 
 
 def func(lineend = 0):
-    command = "./a.out"
+    command = ["python3", "submit.py"]
 
     for index in range(1, 4):
 
@@ -104,19 +104,19 @@ def deleteBinary(FileName="./a.out"):
 
 def runModelAnswer(source, input):
     # sourceをファイルに保存
-    f = open("model.c", "w")
+    f = open("model.py", "w")
     f.write(source)
     f.close()
     # コンパイル
-    command = f"gcc model.c -o model{' -lm' if 'math.h' in source else ''}"
+    command = "python3 -m py_compile model.py"
     cp = subprocess.run(command, shell=True,
                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if cp.returncode != 0:
         return "Compile Error"
-    if os.path.isfile("model") == False:
-        return "Compile Error (Executable file not created)"
+#    if os.path.isfile("model") == False:
+#        return "Compile Error (Executable file not created)"
     # inputを与えてプログラムを実行し，結果を獲得
-    command = "./model"
+    command = "python3 model.py"
     output = ""
     try:
         cp = subprocess.run(command, input=input.encode(), shell=True,
@@ -127,8 +127,7 @@ def runModelAnswer(source, input):
     except subprocess.CalledProcessError:
         return "Runtime Error"
     # ファイル削除
-    os.remove("model")
-    os.remove("model.c")
+    os.remove("model.py")
     # 結果を返す
     return output
 
