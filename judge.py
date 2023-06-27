@@ -28,7 +28,7 @@ def stringToFile(str):
 def compile(FileName, lineend = 0, optlm = False):
     command = ["python3", "-m", "py_compile", "submit.py"]
 
-    cp = subprocess.run(command, shell=True,
+    cp = subprocess.run(command, shell=False,
                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if cp.returncode != 0:
@@ -119,7 +119,7 @@ def runModelAnswer(source, input):
     command = "python3 model.py"
     output = ""
     try:
-        cp = subprocess.run(command, input=input.encode(), shell=True,
+        cp = subprocess.run(command, input=input.replace(" ","\n").encode(), shell=True,
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=2, check=True)
         output = cp.stdout.decode("utf-8")
     except subprocess.TimeoutExpired:
