@@ -62,28 +62,28 @@ VALUES (
     ),(
         2,
         '第2問',
-        'scanf関数を呼び出して、1つの整数を受け取り変数nに格納したあと、出力例のように、1行目に1個の「*」、1行増えるごとに「*」の数を1ずつ増やして、n行目にn個の「*」で、直角三角形のような並びを出力するプログラムを作成してください。<br>0または負の値がnに格納された場合には、何も出力せずにプログラムを終了してください。1の場合には、「*」と改行だけを出力しなさい。',
-        'https://paiza.io/projects/e/Evck7TD6YSM3n5v3phhgEQ?theme=twilight',
+        'input関数を呼び出して、1つの整数を受け取り変数nに格納したあと、出力例のように、1行目に1個の「*」、1行増えるごとに「*」の数を1ずつ増やして、n行目にn個の「*」で、直角三角形のような並びを出力するプログラムを作成してください。<br>0または負の値がnに格納された場合には、何も出力せずにプログラムを終了してください。1の場合には、「*」と改行だけを出力しなさい。',
+        'https://paiza.io/projects/e/QCu2fNiPZ9VrL3QQTEh2Sw?theme=twilight',
         E'4\n',
         E'*\n**\n***\n****\n',
         E'7\n',
         E'*\n**\n***\n****\n*****\n******\n*******\n',
         E'1\n',
         E'*\n',
-        '第1問と同じように、2重ループにします。外側の繰返しの条件は、nと外側のループ用変数を使用して、条件式を書いてください。内側の繰返しの条件は、内側と外側のループ用変数を使用して、条件式を書いてください。i 行目（1≦i≦n）には「*」を連続して i 個、出力させましょう。',
+        'ifを用いてnの値が0以下の場合、exit()を用いてプログラムを終了させてください。<br>forのループ回数をrange関数で指定したあと、printf()で「*」を表示してください。<br>range関数は引数に指定した開始数から終了数までの連続した数値を要素として持つ range 型のオブジェクトを作成します。',
         0
     ),(
         3,
         '第3問',
-        'scanf関数を呼び出して、1つの整数を受け取り変数nに格納したあと、出力例のように、1行目にn個の「*」、1行増えるごとに「*」の数を1ずつ減らして、n行目に1個の「*」で、直角三角形のような並びを出力するプログラムを作成してください。<br>0または負の値がnに格納された場合には、何も出力せずにプログラムを終了してください。1の場合には、「*」と改行だけを出力しなさい。',
-        'https://paiza.io/projects/e/Evck7TD6YSM3n5v3phhgEQ?theme=twilight',
+        'input関数を呼び出して、1つの整数を受け取り変数nに格納したあと、出力例のように、1行目にn個の「*」、1行増えるごとに「*」の数を1ずつ減らして、n行目に1個の「*」で、直角三角形のような並びを出力するプログラムを作成してください。0または負の値がnに格納された場合には、何も出力せずにプログラムを終了してください。1の場合には、「*」と改行だけを出力しなさい。',
+        'https://paiza.io/projects/e/QCu2fNiPZ9VrL3QQTEh2Sw?theme=twilight',
         E'4\n',
         E'****\n***\n**\n*\n',
         E'6\n',
         E'******\n*****\n****\n***\n**\n*\n',
         E'1\n',
         E'*\n',
-        '第2問が正しく作れたら、2重ループの内側のforの行を変更するだけで、第3問もAcceptedを得ることができます。第2問では、i 行目（1≦i≦n）には「*」を連続して i 個、出力させればよかったのですが、この問題では、i 行目に「*」を連続して何個、出力すればいいでしょうか。n と i を使った式で表してみてください。',
+        '入力例を見ると、星の数がひとつずつ減っているのがわかります。i行目はいくつの星があると思いますか？nとiを用いた式で表してみましょう。',
         0
     ),(
         4,
@@ -222,10 +222,10 @@ VALUES (
         E'n = int(input())\nm = int(input())\nfor i in range(n):\n    for j in range(m):\n        print(''*'', end = '''')\n    print()\n'
 ),(
         2,
-        E'#include <stdio.h>\nint main(void){\n    int n;\n    scanf("%d", &n);\n    int i, j;\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    return 0;\n}\n'
+        E'n = int(input())\nif n <= 0:\n    pass\nelif n == 1:\n    print("*")\nelse:\n    for i in range(1, n + 1):\n        for j in range(i):\n            print("*", end="")\n        print()\n\n'
 ),(
         3,
-        E'#include <stdio.h>\nint main(void){\n    int n;\n    scanf("%d", &n);\n    int i, j;\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= n - i + 1; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    return 0;\n}\n'
+        E'n = int(input())\nif n > 0:\n    for i in range(n):\n        for j in range(n - i):\n            print("*", end = "")\n        print()\n\n'
 ),(
         4,
         E'#include <stdio.h>\nint main(void){\n    int n;\n    scanf("%d", &n);\n    if (n <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n    int i, j;\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    for (i = 1; i <= n - 1; i++) {\n        for (j = 1; j <= n - i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    return 0;\n}\n'
