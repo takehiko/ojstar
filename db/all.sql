@@ -88,41 +88,41 @@ VALUES (
     ),(
         4,
         '第4問',
-        'scanf関数を呼び出して、1つの整数を受け取り変数nに格納したあと、出力例のように、1行目に1個の「*」、1行増えるごとに「*」の数を1ずつ増やして、n行目にn個の「*」、その後は1ずつ減らして、二等辺三角形のような並びを出力するプログラムを作成してください。<br>0または負の値がnに格納された場合には、「invalid」を出力して改行し、プログラムを終了してください。1の場合には、「*」と改行だけを出力しなさい。',
-        'https://paiza.io/projects/e/Evck7TD6YSM3n5v3phhgEQ?theme=twilight',
+        'input関数を呼び出して、1つの整数を受け取り変数nに格納したあと、出力例のように、1行目に1個の「*」、1行増えるごとに「*」の数を1ずつ増やして、n行目にn個の「*」、その後は1ずつ減らして、二等辺三角形のような並びを出力するプログラムを作成してください。<br>0または負の値がnに格納された場合には、「invalid」を出力して改行し、プログラムを終了してください。1の場合には、「*」と改行だけを出力しなさい。',
+        'https://paiza.io/projects/e/QCu2fNiPZ9VrL3QQTEh2Sw?theme=twilight',
         E'4\n',
         E'*\n**\n***\n****\n***\n**\n*\n',
         E'9\n',
         E'*\n**\n***\n****\n*****\n******\n*******\n********\n*********\n********\n*******\n******\n*****\n****\n***\n**\n*\n',
         E'0\n',
         E'invalid\n',
-        'n行目までの出力で一つの2重ループ、そのあとにまた別の2重ループを書くといいでしょう。第2問・第3問で作成したプログラムの2重ループが活用できます。ただし、あとの2重ループの出力の行数がn行ではなくn-1行になる点だけは注意してください。</li><li>きちんと「*」の描画ができているはずなのに、何度提出しても「Wrong Answer」となる人へ：「invalid」を出力する処理を忘れていませんか。',
+        'n行目までの出力で一つのループ、そのあとにまた別のループを書くといいでしょう。ただし、あとのループの出力の行数がn行ではなくn-1行になる点だけは注意してください。</li><li>きちんと「*」の描画ができているはずなのに、何度提出しても「Wrong Answer」となる人へ：「invalid」を出力する処理を忘れていませんか。',
         0
     ),(
         5,
         '第5問',
-        'scanf関数を呼び出して、1つの整数を受け取り変数nに格納したあと、出力例のように、1行目に1個の「*」、1行増えるごとに「*」の数を1ずつ増やして、n行目にn個の「*」、その後は左から1ずつ「*」を空白文字に置き換えていき、平行四辺形のような並びを出力するプログラムを作成してください。<br>0または負の値がnに格納された場合には、「invalid」を出力して改行し、プログラムを終了してください。1の場合には、「*」と改行だけを出力しなさい。',
-        'https://paiza.io/projects/e/Evck7TD6YSM3n5v3phhgEQ?theme=twilight',
+        'input関数を呼び出して、1つの整数を受け取り変数nに格納したあと、出力例のように、1行目に1個の「*」、1行増えるごとに「*」の数を1ずつ増やして、n行目にn個の「*」、<br>その後は左から1ずつ「*」を空白文字に置き換えていき、平行四辺形のような並びを出力するプログラムを作成してください。<br>0または負の値がnに格納された場合には、「invalid」を出力して改行し、プログラムを終了してください。1の場合には、「*」と改行だけを出力しなさい。',
+        'https://paiza.io/projects/e/QCu2fNiPZ9VrL3QQTEh2Sw?theme=twilight',
         E'4\n',
         E'*\n**\n***\n****\n ***\n  **\n   *\n',
         E'7\n',
         E'*\n**\n***\n****\n*****\n******\n*******\n ******\n  *****\n   ****\n    ***\n     **\n      *\n',
         E'-1\n',
         E'invalid\n',
-        'n=4のとき、5行目の出力は、1個の空白文字と3個の「*」になります。他のnの値や行でもうまくいくよう、空白文字を出力するためのforループを書いて、「*」を出力するためのforループの前に置き、順に実行するようにしてください。第4問をヒントどおりに作成したら、あとの2重ループの中を変更するだけで完成します。</li><li>ところで、第4問も第5問も、2重ループは1つだけでAcceptedにできます。ただし処理は複雑になります。',
+        'n行目までの出力と、n+1行目からの出力を、別々のfor文を用いて処理してください。</li><li>「0または負の値がnに格納された」ときの処理も忘れずに。',
         0
     ),(
         6,
         '第6問',
-        'scanf関数を呼び出して、正の奇数を受け取り変数nに格納したあと、出力例のように、1行目に1個の「*」、1行増えるごとに「*」の数を2ずつ増やして、ちょうどn個の「*」を出力した後は、「*」の数を2ずつ減らして、n行で「◆」のような並びを出力するプログラムを作成してください。<br>変数nに、0または負の値が格納された場合には「invalid」を、正の偶数が格納されたときには「even」を出力して、改行し、プログラムを終了してください。1の場合には、「*」と改行だけを出力しなさい。',
-        'https://paiza.io/projects/e/UYiXc9-872D9GI0UJAk5CA?theme=twilight',
+        'input関数を呼び出して、正の奇数を受け取り変数nに格納したあと、出力例のように、1行目に1個の「*」、1行増えるごとに「*」の数を2ずつ増やして、ちょうどn個の「*」を出力した後は、「*」の数を2ずつ減らして、n行で「◆」のような並びを出力するプログラムを作成してください。<br>変数nに、0または負の値が格納された場合には「invalid」を、正の偶数が格納されたときには「even」を出力して、改行し、プログラムを終了してください。1の場合には、「*」と改行だけを出力しなさい。',
+        'https://paiza.io/projects/e/Ie9dz_h2JS5fd9nOWXxwGQ?theme=twilight',
         E'7\n',
         E'   *\n  ***\n *****\n*******\n *****\n  ***\n   *\n',
         E'11\n',
         E'     *\n    ***\n   *****\n  *******\n *********\n***********\n *********\n  *******\n   *****\n    ***\n     *\n',
         E'8\n',
         E'even\n',
-        '変数は、入力を格納するための n、2重ループの i と j のほか、1つの行で出力する空白文字の数を r に、「*」の数を s に、それぞれ格納するといいでしょう。1行分を出力したら（内側のループのあと、外側のループの中で）、r と s の値を変えます。ちょうど n 個の「*」を出力するのは、(n+1)/2 行目となることに注意して、条件分岐により「r を1減らして s を2増やす」か「r を1増やして s を2減らす」ようにします。</li><li>「invalid」または「even」を出力したら、すぐにreturn 0;でプログラムを終了することをおすすめします。',
+        '変数は、入力を格納するための n、for文で利用 i と j、１つの行で出力する空白文字の数を r、１つの行で出力する「*」の数を s にそれぞれ格納するとよいでしょう。</li><li>「*」の前の空白文字の数に注目してみましょう。出力したい形は上下で対称になっているので、「(行数-中心の行数)の絶対値」がそれぞれの行で必要な空白文字の数だと分かります。さらに、空白文字の数が分かれば「*」の数が(行数-空白文字の数*2)で求められます。</li><li>「invalid」または「even」はif文でチェックするとよいでしょう。',
         1
     ),(
         7,
@@ -228,13 +228,13 @@ VALUES (
         E'n = int(input())\nif n > 0:\n    for i in range(n):\n        for j in range(n - i):\n            print("*", end = "")\n        print()\n\n'
 ),(
         4,
-        E'#include <stdio.h>\nint main(void){\n    int n;\n    scanf("%d", &n);\n    if (n <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n    int i, j;\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    for (i = 1; i <= n - 1; i++) {\n        for (j = 1; j <= n - i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    return 0;\n}\n'
+        E'n = int(input())\nif n <= 0:\n    print("invalid")\nelse:\n    for i in range(n):\n        for k in range(i + 1):\n            print("*", end = "")\n        print()\n    for i in range(n - 1):\n        for k in range(n - (i + 1)):\n            print("*", end = "")\n        print()\n\n'
 ),(
         5,
-        E'#include <stdio.h>\nint main(void){\n    int n;\n    scanf("%d", &n);\n    if (n <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n    int i, j;\n    for (i = 1; i <= n; i++) {\n        for (j = 1; j <= i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    for (i = 1; i <= n - 1; i++) {\n        for (j = 1; j <= i; j++) {\n            printf(" ");\n        }\n        for (j = 1; j <= n - i; j++) {\n            printf("*");\n        }\n        printf("\\n");\n    }\n    return 0;\n}\n'
+        E'n = int(input())\nif n <= 0:\n    print("invalid")\nelse:\n    for i in range(n):\n        for j in range(i + 1):\n            print("*", end = "")\n        print("")\n    for i in range(n - 1):\n        for j in range(i + 1):\n            print(" ", end = "")\n        for j in range(n - (i + 1)):\n            print("*", end = "")\n        print("")\n\n'
 ),(
         6,
-        E'#include <stdio.h>\nint main(void){\n    int n;\n    int i, j;\n    int r, s;\n\n    scanf("%d", &n);\n    if (n <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n    if (n % 2 == 0) {\n        printf("even\\n");\n        return 0;\n    }\n\n    for (i = 1, r = (n - 1) / 2, s = 1; i <= n; i++) {\n        for (j = 1; j <= r; j++) {\n            printf(" ");\n        }\n        for (j = 1; j <= s; j++) {\n            printf("*");\n        }\n        printf("\\n");\n        if (i < (n + 1) / 2) {\n            r--;\n            s += 2;\n        } else {\n            r++;\n            s -= 2;\n        }\n    }\n\n    return 0;\n}\n'
+        E'n = int(input())\nif n <= 0:\n    print("invalid")\nelif n % 2 == 0:\n    print("even")\nelse:\n    for i in range(n):\n        r = abs(i - (n // 2))\n        s = n - r * 2\n        for j in range(r):\n            print(" ", end = "")\n        for j in range(s):\n            print("*", end = "")\n        print()\n\n'
 ),(
         7,
         E'#include <stdio.h>\nint main(void){\n    int n;\n    int i, j;\n    int r, s;\n\n    scanf("%d", &n);\n    if (n <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n    if (n % 2 == 1) {\n        printf("odd\\n");\n        return 0;\n    }\n\n    for (i = 1, r = n / 2 - 1, s = 2; i <= n; i++) {\n        for (j = 1; j <= r; j++) {\n            printf(" ");\n        }\n        for (j = 1; j <= s; j++) {\n            printf("*");\n        }\n        printf("\\n");\n        if (i < n / 2) {\n            r--;\n            s += 2;\n        } else if (i > n / 2) {\n            r++;\n            s -= 2;\n        }\n    }\n\n    return 0;\n}\n'
