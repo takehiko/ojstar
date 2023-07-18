@@ -127,8 +127,8 @@ VALUES (
     ),(
         7,
         '第7問',
-        'scanf関数を呼び出して、正の偶数を受け取り変数nに格納したあと、出力例のように、1行目に2個の「*」、1行増えるごとに「*」の数を2ずつ増やして、n/2行目とその次の行にちょうどn個の「*」を出力した後は、「*」の数を2ずつ減らして、n行で「◆」のような並びを出力するプログラムを作成してください。<br>変数nに、0または負の値が格納された場合には「invalid」を、正の奇数が格納されたときには「odd」を出力して、改行し、プログラムを終了してください。2の場合には、1行目も2行目も「**」を出力しなさい。',
-        'https://paiza.io/projects/e/GOVvcwiB5c0do1KGcYTZHQ?theme=twilight',
+        'input関数を呼び出して、正の偶数を受け取り変数nに格納したあと、出力例のように、1行目に2個の「*」、1行増えるごとに「*」の数を2ずつ増やして、n/2行目とその次の行にちょうどn個の「*」を出力した後は、「*」の数を2ずつ減らして、n行で「◆」のような並びを出力するプログラムを作成してください。<br>変数nに、0または負の値が格納された場合には「invalid」を、正の奇数が格納されたときには「odd」を出力して、改行し、プログラムを終了してください。2の場合には、1行目も2行目も「**」を出力しなさい。',
+        'https://paiza.io/projects/e/aAbVsbni8JSJbPmT7Kc2VA?theme=twilight',
         E'8\n',
         E'   **\n  ****\n ******\n********\n********\n ******\n  ****\n   **\n',
         E'6\n',
@@ -140,8 +140,8 @@ VALUES (
     ),(
         8,
         '第8問',
-        'scanf関数を呼び出して、2つの正の整数を受け取り変数nおよびmに格納したあと、出力例のように、「*」のジグザグな進行を出力するプログラムを作成しなさい。<br>mが十分に大きいときの出力内容は、次のようになります。1行目からn行目までは、n列目に「*」を出力して、「*」が右下に進むように見せます。その次からは、「*」を左端に出力するまで、「*」が左下に進むように見せます。この繰り返しです。<br>0または負の値が、nとmの少なくとも一方に格納された場合には、「invalid」を出力して改行し、プログラムを終了してください。1がnに（そして正の整数がmに）格納された場合には、空白文字なしで「*」をm行、出力しなさい。',
-        'https://paiza.io/projects/e/hLjOiBzWK_qfTaa24KP4rg?theme=twilight',
+        'input関数を呼び出して、2つの正の整数を受け取り変数nおよびmに格納したあと、出力例のように、「*」のジグザグな進行を出力するプログラムを作成しなさい。<br>mが十分に大きいときの出力内容は、次のようになります。1行目からn行目までは、n列目に「*」を出力して、「*」が右下に進むように見せます。その次からは、「*」を左端に出力するまで、「*」が左下に進むように見せます。この繰り返しです。<br>0または負の値が、nとmの少なくとも一方に格納された場合には、「invalid」を出力して改行し、プログラムを終了してください。1がnに（そして正の整数がmに）格納された場合には、空白文字なしで「*」をm行、出力しなさい。',
+        'https://paiza.io/projects/e/p2HZc0iB1lFtFx3HEn5ecQ?theme=twilight',
         E'5 16\n',
         E'*\n *\n  *\n   *\n    *\n   *\n  *\n *\n*\n *\n  *\n   *\n    *\n   *\n  *\n *\n',
         E'7 14\n',
@@ -237,10 +237,10 @@ VALUES (
         E'n = int(input())\nif n <= 0:\n    print("invalid")\nelif n % 2 == 0:\n    print("even")\nelse:\n    for i in range(n):\n        r = abs(i - (n // 2))\n        s = n - r * 2\n        for j in range(r):\n            print(" ", end = "")\n        for j in range(s):\n            print("*", end = "")\n        print()\n\n'
 ),(
         7,
-        E'#include <stdio.h>\nint main(void){\n    int n;\n    int i, j;\n    int r, s;\n\n    scanf("%d", &n);\n    if (n <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n    if (n % 2 == 1) {\n        printf("odd\\n");\n        return 0;\n    }\n\n    for (i = 1, r = n / 2 - 1, s = 2; i <= n; i++) {\n        for (j = 1; j <= r; j++) {\n            printf(" ");\n        }\n        for (j = 1; j <= s; j++) {\n            printf("*");\n        }\n        printf("\\n");\n        if (i < n / 2) {\n            r--;\n            s += 2;\n        } else if (i > n / 2) {\n            r++;\n            s -= 2;\n        }\n    }\n\n    return 0;\n}\n'
+        E'n = int(input())\nif n <= 0:\n    print("invalid")\nelif n % 2 == 1:\n    print("odd")\nelse:\n    for i in range(n):\n        if i < n // 2:\n            print(" " * (n // 2 - i - 1) + "*" * (i * 2 + 2))\n        else:\n            print(" " * (i - n // 2) + "*" * ((n - i) * 2))\n\n'
 ),(
         8,
-        E'#include <stdio.h>\nint main(void){\n    int n, m;\n    int i, j;\n\n    scanf("%d %d", &n, &m);\n    if (n <= 0 || m <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n\n    for (i = 1; i <= m; i++) {\n        int r;\n        if (n == 1) {\n            r = 1;\n        } else {\n            int v = (i - 1) % ((n - 1) * 2);\n            if (v < n - 1) {\n              r = v + 1;\n            } else {\n              r = (n - 1) * 2 - v + 1;\n            }\n        }\n        for (j = 1; j < r; j++) {\n            printf(" ");\n        }\n        printf("*\\n");\n    }\n\n    return 0;\n}\n'
+        E'n = int(input())\nm = int(input())\nif n <= 0 or m <= 0:\n    print("invalid")\nelse:\n    for i in range(1, m + 1):\n        if n == 1:\n            r = 1\n        else:\n            v = (i - 1) % ((n - 1) * 2)\n            if v < n - 1:\n                r = v + 1\n            else:\n                r = (n - 1) * 2 - v + 1\n        for j in range(1, r):\n            print(" ", end = "")\n        print("*")\n\n'
 ),(
         9,
         E'#include <stdio.h>\nint main(void){\n    int n, m;\n    int i, j;\n\n    scanf("%d %d", &n, &m);\n    if (n <= 0 || m <= 0) {\n        printf("invalid\\n");\n        return 0;\n    }\n\n    for (i = 1; i <= n && i <= m; i++) {\n        int x = 0;\n        int r1, r2, r3;\n\n        r1 = i - 1;\n        r2 = n * 2 - 1 - i * 2;\n        r3 = -3 + i * 2;\n        if (i == 1) r3 = r2;\n        if (i == n) r2 = r3;\n        if (n == 1) r1 = r2 = r3 = 0;\n\n        for (j = 1; j <= r1; j++) {\n          printf(" ");\n        }\n        printf("*");\n        x += r1 + 1;\n\n        while (x <= m) {\n          if (x + r2 + 1 > m)\n            break;\n          for (j = 1; j <= r2; j++) {\n            printf(" ");\n          }\n          printf("*");\n          x += r2 + 1;\n\n          if (x + r3 + 1 > m)\n            break;\n          for (j = 1; j <= r3; j++) {\n            printf(" ");\n          }\n          printf("*");\n          x += r3 + 1;\n        }\n        printf("\\n");\n    }\n\n    return 0;\n}\n'
